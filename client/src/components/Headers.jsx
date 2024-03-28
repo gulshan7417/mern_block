@@ -32,23 +32,29 @@ const Headers = () => {
           <FaMoon />
         </Button>
         <Link to="/signin">
-          <Button gradientDuoTone="purpleToBlue">Sign In</Button>
+          <Button
+            gradientDuoTone="purpleToBlue"
+            outline
+            className="font-bold text-2xl"
+          >
+            Sign In
+          </Button>
         </Link>
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
         <Navbar.Link active={path === '/'} as={'div'}>
-          <Link to="/home" className="text-2xl">
+          <Link to="/home" className="text-[20px]">
             Home
           </Link>
         </Navbar.Link>
         <Navbar.Link active={path === '/about'} as={'div'}>
-          <Link to="/about" className="text-2xl">
+          <Link to="/about" className="text-[20px]">
             About
           </Link>
         </Navbar.Link>
         <Navbar.Link active={path === 'projects'} as={'div'}>
-          <Link to="/projects" className="text-2xl">
+          <Link to="/projects" className="text-[20px]">
             Projects
           </Link>
         </Navbar.Link>

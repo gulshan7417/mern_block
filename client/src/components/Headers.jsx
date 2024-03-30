@@ -2,8 +2,9 @@ import { Button, Navbar, TextInput } from 'flowbite-react';
 import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaMoon } from 'react-icons/fa';
-
+import { useSelector } from 'react-redux';
 const Headers = () => {
+  const { currentUser } = useSelector((state) => state.user);
   const path = useLocation().pathname;
   return (
     <Navbar className="border-b-2 bg-slate-200">
@@ -27,18 +28,24 @@ const Headers = () => {
       <Button className="w-12 h-10 lg:hidden  " pill color="gray">
         <AiOutlineSearch />
       </Button>
-      <div className="flex gap-2 md:order-2">
+      <div className="flex justify-center items-center gap-2 md:order-2">
         <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
           <FaMoon />
         </Button>
-        <Link to="/signin">
-          <Button
-            gradientDuoTone="purpleToBlue"
-            outline
-            className="font-bold text-2xl"
-          >
-            Sign In
-          </Button>
+        <Link to="/profile">
+          {currentUser ? (
+            <img
+              className="rounded-lg h-10 w-10 object-cover"
+              src={currentUser.avatar}
+              alt="profile"
+            />
+          ) : (
+            <Link to="/signin">
+              <Button gradientDuoTone="purpleToBlue" outline>
+                Sign In
+              </Button>
+            </Link>
+          )}
         </Link>
         <Navbar.Toggle />
       </div>

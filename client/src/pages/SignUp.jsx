@@ -48,7 +48,7 @@ const SignUp = () => {
             className="  text-sm sm:text-xl font-bold dark:text-white"
           >
             <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
-              Sahand's
+              Sahands
             </span>
             Blog
           </Link>
@@ -59,6 +59,9 @@ const SignUp = () => {
         </div>
 
         <div className="  flex-1 ">
+          <div className="flex justify-center items-center mb-5">
+            <h1 className="text-2xl font-bold self-center p-5 ">Sign Up</h1>
+          </div>
           <form
             className=" flex flex-col justify-center "
             onSubmit={handleSubmit}
@@ -120,7 +123,7 @@ const SignUp = () => {
           </div>
           {errorMessage && (
             <Alert className="mt-5 text-[17px] w-[90%]" color="failure">
-              please fill out all the space
+              please fill out all the field
             </Alert>
           )}
         </div>

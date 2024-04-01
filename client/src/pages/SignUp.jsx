@@ -98,11 +98,11 @@ const SignUp = () => {
               />
             </div>
 
-            <div className="flex  ">
+            <div>
               <Button
                 gradientDuoTone="purpleToPink"
                 type="submit"
-                className="mt-5 self-center w-[90%]"
+                className="mt-5  w-[90%]"
                 disabled={loading}
               >
                 {loading ? (
@@ -115,7 +115,9 @@ const SignUp = () => {
                 )}
               </Button>
             </div>
-            <OAuth />
+            <div className='mt-5'>
+              <OAuth />
+            </div>
           </form>
           <div className="flex gap-2 text-sm mt-5  ">
             <span>Have an account?</span>

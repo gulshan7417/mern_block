@@ -9,7 +9,6 @@ import {
 } from '../redux/user/userSlice';
 import OAuth from '../components/OAuth';
 
-
 export default function SignIn() {
   const [formData, setFormData] = useState({});
   const { loading, error: errorMessage } = useSelector((state) => state.user);
@@ -37,11 +36,10 @@ export default function SignIn() {
 
       if (res.ok) {
         dispatch(signInSuccess(data));
-        navigate('/home');
+        navigate('/');
       }
     } catch (error) {
       dispatch(signInFailure(error.message));
-      
     }
   };
   return (
@@ -96,8 +94,7 @@ export default function SignIn() {
                 'Sign In'
               )}
             </Button>
-            <div className='w-full '>
-            
+            <div className="w-full ">
               <OAuth />
             </div>
           </form>

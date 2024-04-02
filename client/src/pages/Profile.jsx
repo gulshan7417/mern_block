@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { Alert, Button, Modal } from 'flowbite-react';
 import {
   getDownloadURL,
   getStorage,
@@ -11,17 +13,23 @@ import {
   updateUserFailure,
   updateUserStart,
   updateUserSuccess,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  signoutSuccess,
 } from '../redux/user/userSlice';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const fileRef = useRef();
-  const { currentUser,loading } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
-
+  const [showModal, setShowModal] = useState();
   console.log(currentUser._id);
 
   useEffect(() => {
@@ -83,11 +91,48 @@ const Profile = () => {
     }
   };
 
+  const handleDeleteUser = async () => {
+    setShowModal(false);
+    try {
+      dispatch(deleteUserStart());
 
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        dispatch(deleteUserFailure(data.message));
+      } else {
+        dispatch(deleteUserSuccess(data));
+      }
+    } catch (error) {
+      dispatch(deleteUserFailure(error));
+    }
+  };
+  const handleSignout = async () => {
+    try {
+      const res = await fetch('/api/user/signout', {
+        method: 'POST',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+        navigate('/signin');
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div className="p-3 max-w-lg  mx-auto mt-12">
       <h1 className="text-3xl p-5   font-semibold text-center ">Profile</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit}
+        className="flex1 w-full flex flex-col gap-4"
+      >
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type="file"
@@ -116,7 +161,7 @@ const Profile = () => {
           placeholder="username"
           defaultValue={currentUser.username}
           onChange={handleChange}
-          className="border p-3 rounded-lg w-[90%] self-center"
+          className="border p-3 rounded-lg w-[350px] self-center"
           id="username"
         />
         <input
@@ -124,7 +169,7 @@ const Profile = () => {
           placeholder="email"
           defaultValue={currentUser.email}
           onChange={handleChange}
-          className="border p-3 rounded-lg w-[90%] self-center"
+          className="border p-3 rounded-lg w-[350px]  self-center"
           id="email"
         />
         <input
@@ -132,25 +177,71 @@ const Profile = () => {
           defaultValue={currentUser.password}
           onChange={handleChange}
           placeholder="password"
-          className="border p-3 rounded-lg w-[90%] self-center"
+          className="border p-3 rounded-lg  w-[350px] self-center"
           id="password"
         />
 
-        <button disabled={loading} className="bg-slate-700 w-[90%] self-center text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80">
-          {
-            loading? 'loading...':'update'
-          }
+        <button
+          disabled={loading}
+          className="bg-slate-700 w-[350px] self-center text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80"
+        >
+          {loading ? 'loading...' : 'update'}
         </button>
+        {currentUser.isAdmin && (
+          <Link to='/create-post'>
+            <Button
+              type="button"
+              gradientDuoTone="purpleToPink"
+              className="w-full"
+            >
+              Create a post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="flex justify-between mt-5 w-[90%]  font-bold">
-        <span className="text-red-700">Delete Account</span>
-        <span className="text-red-700">Sign out</span>
+        <span
+          onClick={() => setShowModal(true)}
+          className=" cursor-pointer text-red-700"
+        >
+          Delete Account
+        </span>
+
+        <span onClick={handleSignout} className=" cursor-pointer text-red-700">
+          Sign out
+        </span>
       </div>
-      <p className='text-red-7000 mt-5'>
-        
-      </p>
+      {/* {updateUserSuccess && (<Alert color='success' className='mt-5'>
+     {updateUserSuccess}
+      </Alert>)
+
+      } */}
+      {error && (
+        <Alert color="failure" className="mt-5">
+          {error}
+        </Alert>
+      )}
+
+      <Modal show={showModal} onClose={() => setShowModal(false)} popup>
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
+            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete your account
+            </h3>
+            <div className=" flex justify-center gap-4">
+              <Button color="failure" onClick={handleDeleteUser}>
+                Yes, I am Sure
+              </Button>
+              <Button color="gray" onClick={() => setShowModal(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
 export default Profile;
- 

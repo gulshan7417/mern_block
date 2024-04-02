@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema(
       default:
         'https://static.vecteezy.com/system/resources/previews/007/319/933/original/black-avatar-person-icons-user-profile-icon-vector.jpg',
     },
+    isAdmin:{
+      type:Boolean,
+      default:false
+    }
   },
   { timestamps: true }
 );

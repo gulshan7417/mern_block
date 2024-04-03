@@ -11,6 +11,7 @@ import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute';
 import Profile from './pages/Profile';
 import CreatePost from './pages/CreatePost';
 import UpdatePost from './pages/UpdatePost';
+import Post from './pages/Post';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/post/:postSlug" element={<Post />} />
         <Route path="/signin" element={<Signin />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />

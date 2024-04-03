@@ -108,7 +108,7 @@ const DashPost = () => {
                       </Link>
                     </Table.Cell>
                     <Table.Cell>
-                      <Link className="font-medium text-gray-900 dark:text-white">
+                      <Link to={`/post/${post.slug}`} className="font-medium text-gray-900 dark:text-white">
                         {post.title}
                       </Link>
                     </Table.Cell>

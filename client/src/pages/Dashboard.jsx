@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Profile from './Profile';
 import DashPost from '../components/DashPost';
 
+
 const Dashboard = () => {
    const location = useLocation();
    const [tab, setTab] = useState('');

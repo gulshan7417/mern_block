@@ -1,15 +1,17 @@
-import { BrowserRouter,Routes,Route } from "react-router-dom"
-import Home from "./pages/Home"
-import About from "./pages/About"
-import Projects from "./pages/Projects"
-import Signin from './pages/Signin'
-import Dashboard from './pages/Dashboard'
-import SignUp from './pages/SignUp'
-import Headers from "./components/Headers"
-import PrivateRoute from "./components/PrivateRoute"
-import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute'
-import Profile from "./pages/Profile"
-import CreatePost from "./pages/CreatePost"
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Projects from './pages/Projects';
+import Signin from './pages/Signin';
+import Dashboard from './pages/Dashboard';
+import SignUp from './pages/SignUp';
+import Headers from './components/Headers';
+import PrivateRoute from './components/PrivateRoute';
+import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute';
+import Profile from './pages/Profile';
+import CreatePost from './pages/CreatePost';
+import UpdatePost from './pages/UpdatePost';
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -25,10 +27,11 @@ const App = () => {
         </Route>
         <Route element={<OnlyAdminPrivateRoute />}>
           <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>
         <Route path="/signup" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );
-}
-export default App
+};
+export default App;

@@ -12,10 +12,12 @@ import Profile from './pages/Profile';
 import CreatePost from './pages/CreatePost';
 import UpdatePost from './pages/UpdatePost';
 import Post from './pages/Post';
+import ScrollToTop from './components/ScrollToTop';
 
 const App = () => {
   return (
     <BrowserRouter>
+    <ScrollToTop/>
       <Headers />
       <Routes>
         <Route path="/" element={<Home />} />

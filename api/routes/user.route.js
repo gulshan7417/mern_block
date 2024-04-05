@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import {deleteUser, getUsers, signout, test, updateUser} from '../controllers/user.controller.js'
+import {deleteUser, getUser, getUsers, signout, test, updateUser} from '../controllers/user.controller.js';
 import { verifyToken } from '../utils/varifyUser.js';
 
 
@@ -10,6 +10,7 @@ router.post
 ('/update/:id',verifyToken,updateUser)
 router.delete('/delete/:userId',verifyToken,deleteUser);
 router.post('/signout',signout)
-router.get('/getusers',verifyToken,getUsers)
 router.delete('/delete/:userId', verifyToken, deleteUser);
+router.get('/getusers',verifyToken,getUsers)
+router.get('/:userId',getUser)
 export default router;

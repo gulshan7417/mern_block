@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import Profile from './Profile';
 import DashPost from '../components/DashPost';
 import DashUsers from '../components/DashUsers'
+import DashComment from '../components/DashComment';
+import DashboardComp from '../components/DashboardComp';
 
 const Dashboard = () => {
    const location = useLocation();
@@ -26,6 +28,8 @@ const Dashboard = () => {
       {/* posts... */}
       {tab=='posts' && <DashPost/>}
       {tab=='users' && <DashUsers/>}
+      {tab=='comments' && <DashComment/>}
+       {tab=='dash' && <DashboardComp/>}
      
     </div>
   );

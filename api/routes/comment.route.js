@@ -1,7 +1,16 @@
 import express from "express";
-import { createComment } from "../controllers/comment.controller.js";
+import { createComment, getPostComments,likeComment,editComment,deleteComment,getcomments } from "../controllers/comment.controller.js";
 import {verifyToken} from '../utils/varifyUser.js'
 const router=express.Router();
 
 router.post('/create',verifyToken ,createComment);
+router.get('/getPostComment/:postId',getPostComments)
+router.put('/likeComment/:CommentId',verifyToken,likeComment)
+router.put('/editComment/:commentId', verifyToken, editComment);
+router.delete('/deleteComment/:commentId', verifyToken, deleteComment);
+router.get('/getcomments', verifyToken, getcomments);
+
 export default router;
+
+
+

@@ -13,6 +13,7 @@ import CreatePost from './pages/CreatePost';
 import UpdatePost from './pages/UpdatePost';
 import Post from './pages/Post';
 import ScrollToTop from './components/ScrollToTop';
+import Search from './pages/Search';
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </BrowserRouter>
   );
